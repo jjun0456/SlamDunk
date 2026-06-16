@@ -18,13 +18,11 @@ class SurveyData(BaseModel):
     motive: str
 
 @app.post("/recommend")
-def get_recommendation(data: SurveyData): 
-    # 기본값 설정
+def get_recommendation(data: SurveyData):
     character = "안선생님"
     position = "감독"
     description = "포기하면 그 순간이 바로 시합 종료입니다."
 
-    
     if data.personality == "활발한 성격이다":
         if data.play_style == "공격 중심 (득점기계)":
             if data.motive == "끝없는 열정과 승부욕":
@@ -40,7 +38,6 @@ def get_recommendation(data: SurveyData):
             position = "포인트 가드 (PG)"
             description = "빠른 스피드와 활발한 리더십으로 팀을 지휘하는 코트 위의 사령관 송태섭 타입입니다."
 
-    
     elif data.personality == "조용한/진지한 성격이다":
         if data.play_style == "공격 중심 (득점기계)":
             if data.motive == "끝없는 열정과 승부욕":
