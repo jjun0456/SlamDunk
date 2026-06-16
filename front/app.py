@@ -75,7 +75,7 @@ else:
             str.write("🔍 결과를 분석하고 있습니다...")
             
             # 💡 실제 활성화된 새 EC2 IP 주소 강제 지정
-            backend_url = "http://3.91.197.103:8000/recommend"
+            backend_url = "http://backend:8000/recommend"
             
             # FastAPI 규격에 맞춰 JSON 데이터 전송
             payload = {
