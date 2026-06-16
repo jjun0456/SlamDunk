@@ -96,7 +96,7 @@ else:
         st.markdown("### 🔍 결과를 분석하고 있습니다...")
         
         # 저장해뒀던 답변 데이터 꺼내기
-        backend_url = "http://backend:8000/recommend"
+        backend_url = "http://54.90.218.48:8000/recommend"
         payload = {
             "personality": st.session_state["personality"],
             "play_style": st.session_state["play_style"],
