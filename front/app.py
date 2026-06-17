@@ -85,7 +85,7 @@ else:
                     str.info(result["description"])
                     
                    
-                    image_path = f"images/{result['character']}.png"
+                    image_path = f"images/{result['character']}.jpg"
                     
                     try:
                         str.image(image_path, caption=f"슬램덩크 - {result['character']}", use_container_width=True)
