@@ -3,7 +3,6 @@ import requests
 
 str.set_page_config(page_title="슬램덩크 캐릭터 찾기", page_icon="🏀", layout="centered")
 
-
 if "logged_in" not in str.session_state:
     str.session_state.logged_in = False
 if "step" not in str.session_state:
@@ -11,10 +10,8 @@ if "step" not in str.session_state:
 if "answers" not in str.session_state:
     str.session_state.answers = {}
 
-
 VALID_ID = "ilovekwu"
 VALID_PW = "1234"
-
 
 if not str.session_state.logged_in:
     str.title("🏀 슬램덩크 캐릭터 추천 시스템")
@@ -31,11 +28,9 @@ if not str.session_state.logged_in:
         else:
             str.error("아이디 또는 비밀번호가 올바르지 않습니다.")
 
-
 else:
     str.title("🔥 나에게 맞는 슬램덩크 캐릭터 찾기")
     
-  
     if str.session_state.step == 1:
         str.subheader("Q1. 당신의 평소 성격은 어떤가요?")
         personality = str.radio(
@@ -48,7 +43,6 @@ else:
             str.session_state.step = 2
             str.rerun()
             
-    
     elif str.session_state.step == 2:
         str.subheader("Q2. 농구를 할 때 선호하는 플레이 스타일은?")
         play_style = str.radio(
@@ -61,7 +55,6 @@ else:
             str.session_state.step = 3
             str.rerun()
             
-    
     elif str.session_state.step == 3:
         str.subheader("Q3. 당신을 움직이는 가장 큰 원동력은?")
         motive = str.radio(
@@ -74,7 +67,7 @@ else:
             str.session_state.answers["motive"] = motive
             str.write("🔍 결과를 분석하고 있습니다...")
             
-           
+            
             backend_url = "http://backend:8000/recommend"
             
             payload = {
@@ -92,25 +85,13 @@ else:
                     str.info(result["description"])
                     
                    
-                    image_links = {
-                        "강백호": "https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/pt/2022/12/15/202212152116778025_639b13d9a86c6.jpg",
-                        "서태웅": "https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/pt/2022/12/15/202212152116778025_639b13daac0b9.jpg",
-                        "정대만": "https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/pt/2022/12/15/202212152116778025_639b13da6ad92.jpg",
-                        "윤대협": "https://i.pinimg.com/originals/b1/75/78/b175787b8d872b4101264217cee98661.jpg",
-                        "송태섭": "https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/pt/2022/12/15/202212152116778025_639b13da2f965.jpg",
-                        "채치수": "https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/pt/2022/12/15/202212152116778025_639b13daf02d2.jpg"
-                    }
-                    
-                    
-                    default_img = "https://example.com/images/default_slamdunk.png"
-                    target_image_url = image_links.get(result['character'], default_img)
+                    image_path = f"images/{result['character']}.png"
                     
                     try:
-                        
-                        str.image(target_image_url, caption=f"슬램덩크 - {result['character']}", use_container_width=True)
+                        str.image(image_path, caption=f"슬램덩크 - {result['character']}", use_container_width=True)
                     except Exception as img_err:
-                        str.warning("선수 이미지를 로드하는 중 오류가 발생했습니다. 링크를 확인해 주세요.")
-                    
+                        str.warning(f"선수 이미지를 불러오지 못했습니다. 경로를 확인하세요: {image_path}")
+                    # ==========================================================
                     
                     str.balloons()  
                 else:
